@@ -12,7 +12,7 @@ function Banner() {
 
   const handleReadNow = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/books/random');
+      const res = await axios.get('http://localhost:5000/api/books/random')
       const randomBook = res.data;
       navigate(`/books/${randomBook._id}`);
     } catch (err) {
