@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { addToCart } from '../../redux/features/cart/cartSlice';
 
 import { useAuth } from '../../context/AuthContext';
-import { useFavorites } from '../../hooks/useFavorites'; // Uses localStorage
+import { useFavorites } from '../../hooks/useFavorites';
 
 function BookCard({ book }) {
     const dispatch = useDispatch();
@@ -16,7 +16,7 @@ function BookCard({ book }) {
     const lightRef = useRef();
     const iconRef = useRef();
 
-    const { currentUser } = useAuth(); // currentUser.uid is used for keying favorites
+    const { currentUser } = useAuth();
     const { isFavorited, toggleFavorite } = useFavorites(currentUser);
 
     useEffect(() => {

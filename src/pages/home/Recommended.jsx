@@ -16,10 +16,6 @@ const Recommended = () => {
   const { data: books = [] } = useFetchAllBooksQuery();
   return (
     <div className="py-16 max-w-6xl mx-auto px-4">
-      {/* Title */}
-      <h2 className="text-3xl font-semibold mb-6 text-gray-900">
-        Buy a book
-      </h2>
       <div className="py-16 max-w-6xl mx-auto px-4">
         {/* Title & See All Link */}
         <div className="flex justify-between items-center mb-6">
