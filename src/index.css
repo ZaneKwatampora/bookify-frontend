@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+:root {
+    --font-display: "Satoshi", "sans-serif";
+    --breakpoint-3xl: 1920px;
+    --color-avocado-100: oklch(0.99 0 0);
+    --color-avocado-200: oklch(0.98 0.04 113.22);
+    --color-avocado-300: oklch(0.94 0.11 115.03);
+    --color-avocado-400: oklch(0.92 0.19 114.08);
+    --color-avocado-500: oklch(0.84 0.18 117.33);
+    --color-avocado-600: oklch(0.53 0.12 118.34);
+    --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
+    --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
+    --btn-primary: "bg-black text-white px-12 py-2 rounded-md text-base font-bold hover:bg-white hover:text-black transition-all duration-200 cursor-pointer";
+    /* ... */
+}
+
+
+@layer components {
+    :root {
+        --spacing: 0.25rem;
+    }
+
+    /* .btn-primary {
+        @apply bg-primary px-12 py-2 rounded-md text-base font-secondary font-bold hover:bg-secondary hover:text-white transition-all duration-200 cursor-pointer
+    } */
+
+    .btn-primary {
+        padding: 2px 12px;
+        border-radius: 5px;
+        font-family: 'Courier New', Courier, monospace;
+        color: white;
+        background-color: black;
+        font-weight: bold;
+        transition: all;
+        transition-duration: 200ms;
+    }
+
+    .btn-primary:hover {
+        background-color: black;
+        color: white;
+        cursor: pointer;
+    }
+}
+
+.no-layout header,
+.no-layout footer {
+  display: none !important;
+}
+
+
+.torch-button-wrapper {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    cursor: none;
+  }
+  
+  .torchlight {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    background: radial-gradient(
+      circle at var(--torch-x, 50%) var(--torch-y, 50%),
+      rgba(255, 180, 180, 0.9) 0%,
+      rgba(255, 180, 180, 0.2) 80px,
+      rgba(255, 180, 180, 0) 200px
+    );
+    mix-blend-mode: screen;
+    animation: flicker 0.3s infinite alternate;
+  }
+  
+  .torch-icon {
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(0 0 5px rgba(255, 255, 150, 0.6));
+  }
+  
+  @keyframes flicker {
+    0% {
+      filter: brightness(1) blur(0.5px);
+    }
+    100% {
+      filter: brightness(1.2) blur(1px);
+    }
+  }
