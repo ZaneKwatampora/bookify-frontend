@@ -32,7 +32,11 @@ const AddBook = () => {
               setimageFile(null);
         } catch (error) {
             console.error(error);
-            alert("Failed to add book. Please try again.")   
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Failed to add book. Please try again.",
+            });  
         }
       
     }

@@ -10,7 +10,11 @@ const ManageBooks = () => {
   const handleDeleteBook = async (id) => {
     try {
       await deleteBook(id).unwrap();
-      alert('Book deleted successfully!');
+      Swal.fire({
+        icon: "success",
+        text: 'Book deleted successfully!',
+        footer: '<a href="#">Why do I have this issue?</a>'
+      });
       refetch();
     } catch (error) {
         console.error('Failed to delete book:', error?.data || error?.message || error);

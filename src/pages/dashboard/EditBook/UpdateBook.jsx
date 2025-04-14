@@ -56,7 +56,11 @@ const UpdateBook = () => {
       await refetch()
     } catch (error) {
       console.log("Failed to update book.");
-      alert("Failed to update book.");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Failed to update book.",
+      });
     }
   }
   if (isLoading) return <Loading />

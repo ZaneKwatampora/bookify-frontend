@@ -9,6 +9,7 @@ import { addToCart } from '../../redux/features/cart/cartSlice';
 
 import { useAuth } from '../../context/AuthContext';
 import { useFavorites } from '../../hooks/useFavorites';
+import Swal from 'sweetalert2';
 
 function BookCard({ book }) {
     const dispatch = useDispatch();
@@ -79,7 +80,7 @@ function BookCard({ book }) {
 
     const handleToggleFavorite = () => {
         if (!currentUser) {
-            alert('Please log in to favorite books.');
+            Swal.fire('Please log in to favorite books.')
             return;
         }
         toggleFavorite(book);

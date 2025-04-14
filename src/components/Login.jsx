@@ -3,6 +3,7 @@ import { FaGoogle } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form"
 import { useAuth } from '../context/AuthContext'
+import Swal from 'sweetalert2'
 
 function Login() {
   const [message, setMessage] = useState('')
@@ -20,7 +21,7 @@ function Login() {
     console.log(data)
     try {
       await loginUser(data.email, data.password);
-      alert("User successfully logged in !")
+      Swal.fire("User successfully logged in !")
       navigate('/')
     } catch (error) {
       setMessage("Please provide a valid email and password")
@@ -31,10 +32,10 @@ function Login() {
   const handleGoogleSignIn = async () => {
     try {
       await signInWithGoogle();
-      alert("login successful");
+      Swal.fire("login successful")
       navigate("/")
     } catch (error) {
-      alert("Google sign in failed")
+      Swal.fire("Google sign in failed")
       console.error(error)
     }
   }
