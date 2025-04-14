@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { FiShoppingCart, FiExternalLink } from "react-icons/fi";
+import { FiShoppingCart, FiExternalLink, FiStar } from "react-icons/fi";
 import { useParams } from "react-router-dom";
 import { getImgUrl } from "../../utils/getImgUrl";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/features/cart/cartSlice";
 import { useFetchBookByIdQuery } from "../../redux/features/books/booksApi";
 import { useAuth } from "../../context/AuthContext";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 
 const SingleBook = () => {
   const { currentUser } = useAuth()
@@ -179,7 +180,15 @@ const SingleBook = () => {
               {reviews.map((rev) => (
                 <div key={rev._id} className="border p-4 rounded-lg shadow-sm">
                   <p className="font-semibold">{rev.username}</p>
-                  <p className="text-sm text-yellow-500">Rating: {rev.rating} / 5</p>
+                  <span className="flex ml-2">
+                    {[...Array(5)].map((_, i) =>
+                      i < rev.rating ? (
+                        <AiFillStar key={i} className="text-yellow-500" />
+                      ) : (
+                        <AiOutlineStar key={i} className="text-yellow-500" />
+                      )
+                    )}
+                  </span>
                   <p className="text-gray-700 mt-1">{rev.comment}</p>
                 </div>
               ))}
