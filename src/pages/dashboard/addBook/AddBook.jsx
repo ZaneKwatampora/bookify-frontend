@@ -88,18 +88,6 @@ const AddBook = () => {
           register={register}
         />
 
-        {/* Trending Checkbox */}
-        <div className="mb-4">
-          <label className="inline-flex items-center">
-            <input
-              type="checkbox"
-              {...register('trending')}
-              className="rounded text-blue-600 focus:ring focus:ring-offset-2 focus:ring-blue-500"
-            />
-            <span className="ml-2 text-sm font-semibold text-gray-700">Trending</span>
-          </label>
-        </div>
-
         {/* Old Price */}
         <InputField
           label="Old Price"
@@ -120,10 +108,10 @@ const AddBook = () => {
           
         />
 
-        {/* Cover Image Upload */}
+        {/* Cover Image Upload */} 
         <div className="mb-4">
           <label className="block text-sm font-semibold text-gray-700 mb-2">Cover Image</label>
-          <input type="file" accept="image/*" onChange={handleFileChange} className="mb-2 w-full" />
+          <input type="file" accept="image/*" onChange={handleFileChange} className="mb-2 w-full bg-gray-300 p-5 rounded-sm " />
           {imageFileName && <p className="text-sm text-gray-500">Selected: {imageFileName}</p>}
         </div>
 

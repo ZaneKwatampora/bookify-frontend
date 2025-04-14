@@ -5,9 +5,10 @@ import BookCard from './BookCard';
 
 function Favourite() {
   const { currentUser } = useAuth();
-  const { favorites } = useFavorites(currentUser);
+  const { favorites, isFavorited, toggleFavorite } = useFavorites(currentUser);
 
-  if (!currentUser) return <p className="text-center mt-10">Please log in to view your favorites.</p>;
+  if (!currentUser)
+    return <p className="text-center mt-10">Please log in to view your favorites.</p>;
 
   return (
     <div className="p-4">
@@ -17,7 +18,12 @@ function Favourite() {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {favorites.map((book) => (
-            <BookCard key={book._id} book={book} />
+            <BookCard
+              key={book._id}
+              book={book}
+              isFavorited={isFavorited}
+              toggleFavorite={toggleFavorite}
+            />
           ))}
         </div>
       )}

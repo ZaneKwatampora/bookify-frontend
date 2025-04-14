@@ -11,14 +11,18 @@ import { useAuth } from '../../context/AuthContext';
 import { useFavorites } from '../../hooks/useFavorites';
 import Swal from 'sweetalert2';
 
-function BookCard({ book }) {
+function BookCard({ book, isFavorited: propIsFavorited, toggleFavorite: propToggleFavorite }) {
     const dispatch = useDispatch();
     const wrapperRef = useRef();
     const lightRef = useRef();
     const iconRef = useRef();
 
     const { currentUser } = useAuth();
-    const { isFavorited, toggleFavorite } = useFavorites(currentUser);
+    const { isFavorited: localIsFavorited, toggleFavorite: localToggleFavorite } = useFavorites(currentUser);
+
+    const isFavorited = propIsFavorited || localIsFavorited;
+    const toggleFavorite = propToggleFavorite || localToggleFavorite;
+    
 
     useEffect(() => {
         const wrapper = wrapperRef.current;
@@ -77,15 +81,19 @@ function BookCard({ book }) {
     const handleAddToCart = () => {
         dispatch(addToCart(book));
     };
-
-    const handleToggleFavorite = () => {
+    const handleToggleFavorite = async () => {
         if (!currentUser) {
-            Swal.fire('Please log in to favorite books.')
+            Swal.fire('Please log in to favorite books.');
             return;
         }
-        toggleFavorite(book);
-    };
 
+        try {
+            await toggleFavorite(book);
+        } catch (err) {
+            Swal.fire('Failed to favorite book.');
+            console.error(err);
+        }
+    };
     return (
         <div className="relative bg-white p-5  shadow-md hover:shadow-xl flex flex-col justify-between gap-4 h-full min-h-[450px] transform transition-transform duration-300 hover:scale-[1.02] group">
 

@@ -11,7 +11,7 @@ function DashboardLayout() {
 
             {/* Horizontal Navbar */}
             <nav className="flex justify-center gap-6 bg-gray-100 p-4 rounded-xl shadow mb-10">
-                <Link to="dashboard-main" className="text-blue-500 hover:text-blue-700 font-medium">
+                <Link to="" className="text-blue-500 hover:text-blue-700 font-medium">
                     Dashboard
                 </Link>
                 <Link to="add-new-book" className="text-blue-500 hover:text-blue-700 font-medium">

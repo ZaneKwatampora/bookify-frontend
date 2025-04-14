@@ -5,8 +5,10 @@ import { getImgUrl } from "../../utils/getImgUrl";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/features/cart/cartSlice";
 import { useFetchBookByIdQuery } from "../../redux/features/books/booksApi";
+import { useAuth } from "../../context/AuthContext";
 
 const SingleBook = () => {
+  const { currentUser } = useAuth()
   const { id } = useParams();
   const { data: book, isLoading, isError } = useFetchBookByIdQuery(id);
   const dispatch = useDispatch();
@@ -56,7 +58,7 @@ const SingleBook = () => {
     try {
       const newReview = {
         bookId: id,
-        username: "Anonymous", // Replace with actual user if auth is implemented
+        username: currentUser?.email,
         comment,
         rating,
       };

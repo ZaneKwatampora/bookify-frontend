@@ -54,7 +54,7 @@ function App() {
               <Route path="/search-results" element={<SearchResults />} />
               <Route path="/books" element={<AllBook />} />
               <Route path="/dashboard" element={<ProtectedAdminRoute>  <DashboardLayout /></ProtectedAdminRoute>}>
-                <Route path="dashboard-main" element={<Dashboard />} />
+                <Route path="" element={<Dashboard />} />
                 <Route path="overview" element={<Overview />} />
                 <Route path="profile" element={<Profile />} />
                 <Route path="setting" element={<Setting />} />

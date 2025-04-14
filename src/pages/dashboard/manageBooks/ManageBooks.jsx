@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDeleteBookMutation, useFetchAllBooksQuery } from '../../../redux/features/books/booksApi';
 import { Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const ManageBooks = () => {
   const navigate = useNavigate();
@@ -13,7 +14,6 @@ const ManageBooks = () => {
       Swal.fire({
         icon: "success",
         text: 'Book deleted successfully!',
-        footer: '<a href="#">Why do I have this issue?</a>'
       });
       refetch();
     } catch (error) {
