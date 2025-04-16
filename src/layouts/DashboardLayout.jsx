@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaBookOpen } from 'react-icons/fa';
 import { Link, Outlet } from 'react-router-dom';
 
 function DashboardLayout() {
@@ -6,7 +7,7 @@ function DashboardLayout() {
         <div className="min-h-screen bg-gray-50 p-8">
             {/* Header */}
             <header className="text-center mb-8">
-                <h1 className="text-3xl font-semibold">Welcome to your Dashboard</h1>
+                <h1 className="text-3xl font-semibold"> <FaBookOpen/> Bookify Dashboard</h1>
             </header>
 
             {/* Horizontal Navbar */}

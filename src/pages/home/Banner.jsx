@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import bannerImg from "../../assets/banner2.png";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import '../../styles/Banner.css';
 
 function Banner() {
   const navigate = useNavigate();
@@ -19,6 +20,22 @@ function Banner() {
       console.error('Error fetching random book:', err);
     }
   };
+
+  const bgRef = useRef();
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      const { innerWidth, innerHeight } = window;
+      const x = (e.clientX / innerWidth - 0.5) * 30;
+      const y = (e.clientY / innerHeight - 0.5) * 30;
+      if (bgRef.current) {
+        bgRef.current.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   useEffect(() => {
     const wrapper = wrapperRef.current;
@@ -76,14 +93,15 @@ function Banner() {
 
   return (
     <div className='flex flex-col md:flex-row py-16 justify-between items-center gap-10'>
+      <div className="parallax-background" ref={bgRef}></div>
       <div className='md:w-1/2 w-full flex items-center md:justify-reverse'>
         <img src={bannerImg} alt="banner" />
       </div>
 
       <div className='md:w-1/2 w-full'>
-        <h1 className='md:text-5xl text-2xl font-medium mb-7'>Welcome to Bookify</h1>
-        <p className='mb-10'>
-          Bookify is a book reading website that allows you to get a taste of what a book is <span className='font-bold'>Before</span> you buy it,
+        <h1 className='md:text-5xl text-2xl font-medium mb-7 text-white'>Welcome to Bookify</h1>
+        <p className='mb-10 text-white'>
+          Bookify is a book library website that allows you to get a taste of what a book is <span className='font-bold'>Before</span> you buy it,
           Leave comments on how much you enjoyed the book, and save the book to favourites.
         </p>
 

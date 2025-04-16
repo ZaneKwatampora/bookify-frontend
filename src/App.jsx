@@ -26,12 +26,14 @@ import Dashboard from './pages/dashboard/Dashboard'
 import ManageBooks from './pages/dashboard/manageBooks/ManageBooks'
 import UpdateBook from './pages/dashboard/EditBook/UpdateBook'
 import AllBook from './pages/books/AllBook'
+import UserDashboard from './pages/dashboard/users/UserDashboard'
+import UserInfo from './pages/dashboard/UserInfo'
 
 
 
 function App() {
   return (
-    <div>
+    <div className='pt-20'>
       <AuthProvider>
         <Router>
           <div className='mx-4 sm:mx-10 md:mx-20 lg:mx-32 xl:mx-40 my-0 sm:my-0 md:my-0 lg:my-0'>
@@ -61,7 +63,9 @@ function App() {
                 <Route path="add-new-book" element={<AddBook />} />
                 <Route path="edit-book/:id" element={<UpdateBook />} />
                 <Route path="manage-books" element={<ManageBooks />} />
+                <Route path="user" element={<UserInfo/>} />
               </Route>
+              <Route path='/user-dashboard' element={<UserDashboard/>} />
               <Route path='*' element={<NotFound />} />
             </Routes>
           </div>

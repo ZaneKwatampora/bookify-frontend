@@ -1,19 +1,20 @@
 import React from 'react';
 import { useAuth } from '../../../context/AuthContext';
 import { useGetOrderByEmailQuery } from '../../../redux/features/orders/ordersApi';
+import Loading from '../../../components/Loading';
 
 const UserDashboard = () => {
     const { currentUser } = useAuth();
     const { data: orders = [], isLoading, isError } = useGetOrderByEmailQuery(currentUser?.email);
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return <div><Loading/></div>;
     if (isError) return <div>Error getting orders data</div>;
 
     return (
         <div className=" bg-gray-100 py-16">
             <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
-                <h1 className="text-2xl font-bold mb-4">User Dashboard</h1>
-                <p className="text-gray-700 mb-6">Welcome, {currentUser?.name || 'User'}! Here are your recent orders:</p>
+                <h1 className="text-2xl font-bold mb-4"> {currentUser?.displayName || currentUser?.email?.split("@")[0]}'s Dashboard</h1>
+                <p className="text-gray-700 mb-6">Welcome, {currentUser?.displayName || currentUser?.email?.split("@")[0]}! Here are your recent orders:</p>
 
                 <div className="mt-6">
                     <h2 className="text-xl font-semibold mb-4">Your Orders</h2>

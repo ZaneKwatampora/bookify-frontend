@@ -11,7 +11,8 @@ const navigation = [
   { name: "Cart Page", href: "/cart" },
   { name: "Check Out", href: "/checkout" },
   { name: "Favourites", href: "/favourites" },
-  { name: "Dashboard", href: "/dashboard" },
+  { name: "User Dashboard", href: "/user-dashboard" },
+  { name: "Admin Dashboard", href: "/dashboard" },
 ];
 
 function Navbar() {
@@ -44,64 +45,67 @@ function Navbar() {
   };
 
   return (
-    <header className='max-w-screen-2xl mx-auto px-4 py-6'>
-      <nav className='flex justify-between items-center relative'>
+    <header className="fixed top-0 left-0 w-full z-50 bg-white/10 backdrop-blur-lg shadow-md h-20">
+      <nav className="max-w-screen-2xl mx-auto px-4 py-4 flex justify-between items-center">
 
         {/* Left side - Logo + Search */}
-        <div className='flex items-center gap-4 sm:gap-16'>
-          <Link to='/' className='flex items-center gap-2'>
-            <h1 className='font-serif text-2xl font-semibold'>Bookify</h1>
-            <FaBookOpen className='w-6 h-6 text-orange-600' />
+        <div className="flex items-center gap-4 sm:gap-16">
+          <Link to="/" className="flex items-center gap-2">
+            <h1 className="font-serif text-2xl font-semibold text-black">Bookify</h1>
+            <FaBookOpen className="w-6 h-6 text-orange-600" />
           </Link>
 
           {/* Search Bar */}
-          <form onSubmit={handleSearch} className='hidden sm:flex items-center space-x-2'>
+          <form onSubmit={handleSearch} className="hidden sm:flex items-center space-x-2">
             <input
-              type='text'
-              placeholder='Search for books...'
-              className='p-2 border border-gray-300 rounded w-60'
+              type="text"
+              placeholder="Search for books..."
+              className="p-2 border border-gray-300 rounded w-60"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <button type='submit' className='bg-orange-600 p-3 text-white rounded'>
+            <button type="submit" className="bg-orange-600 p-3 text-white rounded">
               <FaSearch />
             </button>
           </form>
         </div>
 
         {/* Right side - Icons */}
-        <div className='flex items-center gap-3 sm:gap-4'>
-          {/* Heart icon */}
-          <Link to="/favourites" className='hidden sm:block'>
-            <FaStar className='w-6 h-6 text-yellow-400' />
+        <div className="flex items-center gap-3 sm:gap-4">
+          {/* Heart/Favorite icon */}
+          <Link to="/favourites" className="hidden sm:block">
+            <FaStar className="w-6 h-6 text-yellow-400" />
           </Link>
 
           {/* Cart icon */}
-          <Link to="/cart" className='bg-orange-600 p-1 sm:px-6 py-2 flex items-center rounded-sm'>
-            <HiOutlineShoppingCart className='w-5 h-5 text-white' />
-            <span className='text-sm font-semibold text-white ml-1'>
+          <Link to="/cart" className="bg-orange-600 p-1 sm:px-6 py-2 flex items-center rounded-sm">
+            <HiOutlineShoppingCart className="w-5 h-5 text-white" />
+            <span className="text-sm font-semibold text-white ml-1">
               {cartItems.length > 0 ? cartItems.length : 0}
             </span>
           </Link>
 
-          {/* User avatar / login */}
+          {/* User avatar or login */}
           {currentUser ? (
-            <div className='relative'>
-              <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} className='relative'>
-                <img src={avatarImg} alt="Avatar" className='w-8 h-8 rounded-full ring-2' />
+            <div className="relative">
+              <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} className="relative">
+                <img src={avatarImg} alt="Avatar" className="w-8 h-8 rounded-full ring-2" />
               </button>
               {isDropdownOpen && (
-                <div className='absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md z-40'>
-                  <ul className='py-2'>
+                <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md z-40">
+                  <ul className="py-2">
                     {navigation.map((item) => (
                       <li key={item.name} onClick={() => setIsDropdownOpen(false)}>
-                        <Link to={item.href} className='block px-4 py-2 text-sm hover:bg-gray-100'>
+                        <Link to={item.href} className="block px-4 py-2 text-sm hover:bg-gray-100">
                           {item.name}
                         </Link>
                       </li>
                     ))}
                     <li>
-                      <button onClick={handleLogOut} className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
+                      <button
+                        onClick={handleLogOut}
+                        className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+                      >
                         Logout
                       </button>
                     </li>
@@ -111,39 +115,39 @@ function Navbar() {
             </div>
           ) : (
             <Link to="/login">
-              <HiOutlineUser className='w-6 h-6 text-gray-700' />
+              <HiOutlineUser className="w-6 h-6 text-gray-700" />
             </Link>
           )}
 
-          {/* Mobile toggle */}
-          <button className='sm:hidden' onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-            <HiMenu className='w-6 h-6 text-gray-700' />
+          {/* Mobile menu toggle */}
+          <button className="sm:hidden" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+            <HiMenu className="w-6 h-6 text-gray-700" />
           </button>
         </div>
       </nav>
 
       {/* Mobile Dropdown */}
       {isMobileMenuOpen && (
-        <div className='mt-4 sm:hidden space-y-4'>
-          <form onSubmit={handleSearch} className='flex items-center space-x-2'>
+        <div className="mt-4 sm:hidden space-y-4 px-4">
+          <form onSubmit={handleSearch} className="flex items-center space-x-2">
             <input
-              type='text'
-              placeholder='Search books...'
-              className='flex-grow p-2 border border-gray-300 rounded'
+              type="text"
+              placeholder="Search books..."
+              className="flex-grow p-2 border border-gray-300 rounded"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <button type='submit' className='bg-orange-600 p-2 text-white rounded'>
+            <button type="submit" className="bg-orange-600 p-2 text-white rounded">
               <FaSearch />
             </button>
           </form>
 
-          <ul className='bg-white rounded-md shadow divide-y'>
+          <ul className="bg-white rounded-md shadow divide-y">
             {navigation.map((item) => (
               <li key={item.name}>
                 <Link
                   to={item.href}
-                  className='block px-4 py-2 text-sm hover:bg-gray-100'
+                  className="block px-4 py-2 text-sm hover:bg-gray-100"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.name}
@@ -154,7 +158,7 @@ function Navbar() {
               <li>
                 <button
                   onClick={handleLogOut}
-                  className='block w-full text-left px-4 py-2 text-sm hover:bg-gray-100'
+                  className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
                 >
                   Logout
                 </button>

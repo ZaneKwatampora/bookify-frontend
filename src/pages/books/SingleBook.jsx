@@ -59,7 +59,7 @@ const SingleBook = () => {
     try {
       const newReview = {
         bookId: id,
-        username: currentUser?.email,
+        username: currentUser?.displayName || currentUser?.email?.split("@")[0],
         comment,
         rating,
       };
