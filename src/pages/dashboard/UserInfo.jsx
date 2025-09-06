@@ -15,6 +15,7 @@ function UserInfo() {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
+        console.log("Fetched users", response.data); // ✅ move here
         setUsers(response.data);
         setLoading(false);
       } catch (error) {
@@ -22,7 +23,7 @@ function UserInfo() {
         setLoading(false);
       }
     };
-
+  
     fetchUsers();
   }, []);
 

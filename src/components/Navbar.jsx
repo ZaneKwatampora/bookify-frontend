@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FaBookOpen, FaSearch, FaStar } from 'react-icons/fa';
 import { HiOutlineHeart, HiOutlineShoppingCart, HiOutlineUser, HiMenu } from 'react-icons/hi';
 import { Link, useNavigate } from 'react-router-dom';
-import avatarImg from "../assets/avatar.png";
+import defaultAvatar from "../assets/avatar.png";
 import { useSelector } from 'react-redux';
 import { useAuth } from '../context/AuthContext';
 
@@ -22,6 +22,8 @@ function Navbar() {
   const cartItems = useSelector(state => state.cart.cartItems);
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
+  console.log(currentUser?.photoURL);
+  console.log(currentUser);
 
   const handleLogOut = () => {
     logout();
@@ -88,8 +90,12 @@ function Navbar() {
           {/* User avatar or login */}
           {currentUser ? (
             <div className="relative">
-              <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} className="relative">
-                <img src={avatarImg} alt="Avatar" className="w-8 h-8 rounded-full ring-2" />
+              <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} className="relative hover:cursor-pointer hover:scale-105 transition">
+                <img
+                  src={defaultAvatar}
+                  alt="Profile"
+                  className="w-10 h-10 rounded-full"
+                />
               </button>
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md z-40">

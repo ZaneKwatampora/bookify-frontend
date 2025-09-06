@@ -1,60 +1,56 @@
-import React, { useState } from 'react'
-import InputField from './InputField'
-import SelectField from './SelectField'
+import React, { useState } from 'react';
+import InputField from './InputField';
+import SelectField from './SelectField';
 import { useForm } from 'react-hook-form';
 import { useAddBookMutation } from '../../../redux/features/books/booksApi';
 import Swal from 'sweetalert2';
 
 const AddBook = () => {
-    const { register, handleSubmit, formState: { errors }, reset } = useForm();
-    const [imageFile, setimageFile] = useState(null);
-    const [addBook, {isLoading, isError}] = useAddBookMutation()
-    const [imageFileName, setimageFileName] = useState('')
-    const onSubmit = async (data) => {
- 
-        const newBookData = {
-            ...data,
-            coverImage: imageFileName
-        }
-        try {
-            await addBook(newBookData).unwrap();
-            Swal.fire({
-                title: "Book added",
-                text: "Your book is uploaded successfully!",
-                icon: "success",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, It's Okay!"
-              });
-              reset();
-              setimageFileName('')
-              setimageFile(null);
-        } catch (error) {
-            console.error(error);
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: "Failed to add book. Please try again.",
-            });  
-        }
-      
-    }
+  const { register, handleSubmit, formState: { errors }, reset } = useForm();
+  const [imageFile, setImageFile] = useState(null);
+  const [imageFileName, setImageFileName] = useState('');
+  const [addBook, { isLoading }] = useAddBookMutation();
 
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        if(file) {
-            setimageFile(file);
-            setimageFileName(file.name);
-        }
+  const onSubmit = async (data) => {
+    const newBookData = {
+      ...data,
+      coverImage: imageFileName,
+    };
+    try {
+      await addBook(newBookData).unwrap();
+      Swal.fire({
+        title: "Book added",
+        text: "Your book is uploaded successfully!",
+        icon: "success",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Great!",
+      });
+      reset();
+      setImageFileName('');
+      setImageFile(null);
+    } catch (error) {
+      console.error(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Failed to add book. Please try again.",
+      });
     }
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(file);
+      setImageFileName(file.name);
+    }
+  };
+
   return (
-    <div className="max-w-lg   mx-auto md:p-6 p-3 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold text-gray-800 mb-4">Add New Book</h2>
+    <div className="max-w-xl mx-auto mt-12 px-6 py-8 bg-white shadow-xl rounded-2xl">
+      <h2 className="text-3xl font-semibold text-gray-800 mb-8 text-center">Add New Book</h2>
 
-      {/* Form starts here */}
-      <form onSubmit={handleSubmit(onSubmit)} className=''>
-        {/* Reusable Input Field for Title */}
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <InputField
           label="Title"
           name="title"
@@ -62,17 +58,14 @@ const AddBook = () => {
           register={register}
         />
 
-        {/* Reusable Textarea for Description */}
         <InputField
           label="Description"
           name="description"
           placeholder="Enter book description"
           type="textarea"
           register={register}
-
         />
 
-        {/* Reusable Select Field for Category */}
         <SelectField
           label="Category"
           name="category"
@@ -83,47 +76,85 @@ const AddBook = () => {
             { value: 'fiction', label: 'Fiction' },
             { value: 'horror', label: 'Horror' },
             { value: 'adventure', label: 'Adventure' },
-            // Add more options as needed
           ]}
           register={register}
         />
 
-        {/* Old Price */}
         <InputField
           label="Old Price"
           name="oldPrice"
           type="number"
           placeholder="Old Price"
           register={register}
-         
         />
 
-        {/* New Price */}
         <InputField
           label="New Price"
           name="newPrice"
           type="number"
           placeholder="New Price"
           register={register}
-          
         />
 
-        {/* Cover Image Upload */} 
-        <div className="mb-4">
-          <label className="block text-sm font-semibold text-gray-700 mb-2">Cover Image</label>
-          <input type="file" accept="image/*" onChange={handleFileChange} className="mb-2 w-full bg-gray-300 p-5 rounded-sm " />
-          {imageFileName && <p className="text-sm text-gray-500">Selected: {imageFileName}</p>}
+        {/* File Upload */}
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-gray-700">
+            Cover Image
+          </label>
+
+          <label className="flex items-center justify-between px-4 py-2 bg-blue-600 text-white text-sm rounded-md cursor-pointer hover:bg-blue-700 transition">
+            <span>Select Image</span>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="hidden"
+            />
+          </label>
+
+          {imageFileName && (
+            <p className="text-xs text-gray-600">
+              <span className="font-medium">Selected:</span> {imageFileName}
+            </p>
+          )}
         </div>
 
-        {/* Submit Button */}
-        <button type="submit" className="w-full py-2 bg-green-500 text-white font-bold rounded-md">
-         {
-            isLoading ? <span className="">Adding.. </span> : <span>Add Book</span>
-          }
+        <button
+          type="submit"
+          className="mt-6 w-full flex items-center justify-center gap-2 py-2 px-4 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700 transition"
+        >
+          {isLoading ? (
+            <>
+              <svg
+                className="animate-spin h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 00-8 8h4z"
+                ></path>
+              </svg>
+              Adding...
+            </>
+          ) : (
+            <>Add Book</>
+          )}
         </button>
+
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default AddBook
+export default AddBook;

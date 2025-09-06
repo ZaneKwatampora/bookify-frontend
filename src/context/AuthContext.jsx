@@ -39,35 +39,30 @@ export const AuthProvider = ({ children }) => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setCurrentUser(user);
             setLoading(false);
-    
+
             if (user) {
+
                 const { email, displayName, photoURL } = user;
-                const username = displayName || email?.split("@")[0];
-    
                 const userData = {
-                    email,
-                    username,
-                    photo: photoURL
-                };
-    
-                // You can optionally store this in context if needed
-                console.log("User:", userData);
+                    email, username: displayName, photo: photoURL
+                }
             }
-        });
-    
+        })
+
         return () => unsubscribe();
-    }, []);
+    }, [])
 
 
 
     const value = {
         currentUser,
+        setCurrentUser, // <-- add this
         loading,
         registerUser,
         loginUser,
         signInWithGoogle,
         logout,
-    };
+      };
 
     return (
         <AuthContext.Provider value={value}>

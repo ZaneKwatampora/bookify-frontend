@@ -28,6 +28,9 @@ import UpdateBook from './pages/dashboard/EditBook/UpdateBook'
 import AllBook from './pages/books/AllBook'
 import UserDashboard from './pages/dashboard/users/UserDashboard'
 import UserInfo from './pages/dashboard/UserInfo'
+import OrdersInfo from './pages/dashboard/OrdersInfo'
+import UserProfile from './components/Profile'
+
 
 
 
@@ -64,8 +67,10 @@ function App() {
                 <Route path="edit-book/:id" element={<UpdateBook />} />
                 <Route path="manage-books" element={<ManageBooks />} />
                 <Route path="user" element={<UserInfo/>} />
+                <Route path="orders" element={<OrdersInfo />} />
               </Route>
               <Route path='/user-dashboard' element={<UserDashboard/>} />
+              <Route path='/profile' element={<UserProfile/>} />
               <Route path='*' element={<NotFound />} />
             </Routes>
           </div>

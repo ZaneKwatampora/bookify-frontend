@@ -2,14 +2,23 @@ import React from 'react';
 
 const InputField = ({ label, name, type = 'text', register, placeholder }) => {
   return (
-    <div className="mb-4">
-      <label className="block text-sm font-semibold text-gray-700">{label}</label>
-      <input
-        type={type}
-        {...register(name,  { required: true })}
-        className=" p-2 border w-full rounded-md focus:outline-none focus:ring focus:border-blue-300"
-        placeholder={placeholder}
-      />
+    <div>
+      <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
+      {type === 'textarea' ? (
+        <textarea
+          {...register(name, { required: true })}
+          className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
+          placeholder={placeholder}
+          rows={4}
+        />
+      ) : (
+        <input
+          type={type}
+          {...register(name, { required: true })}
+          className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
+          placeholder={placeholder}
+        />
+      )}
     </div>
   );
 };

@@ -35,7 +35,7 @@ function AdminLogin() {
           Swal.fire('Token has expired! Please login again.');
 
           navigate('/');
-        }, 3000 * 100);
+        }, 1000 * 100);
 
          Swal.fire("Admin Login Successful")
 
